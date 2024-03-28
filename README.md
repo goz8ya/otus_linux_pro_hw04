@@ -13,6 +13,7 @@
 Что нужно сделать?
 на имеющемся образе (centos/7 1804.2)
 https://gitlab.com/otus_linux/stands-03-lvm
+На всякий случай сделал у себя копию  https://github.com/goz8ya/stands-03-lvm
 
 /dev/mapper/VolGroup00-LogVol00 38G 738M 37G 2% /
 
