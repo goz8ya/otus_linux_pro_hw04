@@ -1,0 +1,160 @@
+Script started on 2024-04-04 18:06:04+00:00 [TERM="xterm-256color" TTY="/dev/pts/1" COLUMNS="317" LINES="86"]
+[?2004h]0;root@lvm: /home/vagrant[01;32mroot@lvm[00m:[01;34m/home/vagrant[00m# lsblk 
+[?2004lNAME                      MAJ:MIN RM   SIZE RO TYPE MOUNTPOINTS
+loop0                       7:0    0  63.9M  1 loop /snap/core20/2182
+loop1                       7:1    0  63.4M  1 loop /snap/core20/1974
+loop2                       7:2    0    87M  1 loop /snap/lxd/27948
+loop3                       7:3    0 111.9M  1 loop /snap/lxd/24322
+loop4                       7:4    0  39.1M  1 loop /snap/snapd/21184
+loop5                       7:5    0  53.3M  1 loop /snap/snapd/19457
+sda                         8:0    0   128G  0 disk 
+├─sda1                      8:1    0     1M  0 part 
+├─sda2                      8:2    0     2G  0 part /boot
+└─sda3                      8:3    0   126G  0 part 
+  └─ubuntu--vg-ubuntu--lv 253:1    0    63G  0 lvm  
+sdb                         8:16   0    10G  0 disk 
+└─vg_root-lv_root         253:0    0    10G  0 lvm  /
+sdc                         8:32   0     2G  0 disk 
+sdd                         8:48   0     1G  0 disk 
+sde                         8:64   0     1G  0 disk 
+[?2004h]0;root@lvm: /home/vagrant[01;32mroot@lvm[00m:[01;34m/home/vagrant[00m# resize2fs /dev/u
+ubuntu-vg/ udmabuf    uhid       uinput     urandom    userio     
+]0;root@lvm: /home/vagrant[01;32mroot@lvm[00m:[01;34m/home/vagrant[00m# resize2fs /dev/ubuntu-vg/ubuntu-lv 8G
+[?2004lresize2fs 1.46.5 (30-Dec-2021)
+Please run 'e2fsck -f /dev/ubuntu-vg/ubuntu-lv' first.
+
+[?2004h]0;root@lvm: /home/vagrant[01;32mroot@lvm[00m:[01;34m/home/vagrant[00m# e2fsck -f /dev/ubuntu-vg/ubuntu-lv'
+[?2004l[?2004h> ^C[?2004l[?2004h[?2004l
+[?2004h]0;root@lvm: /home/vagrant[01;32mroot@lvm[00m:[01;34m/home/vagrant[00m# e2fsck -f /dev/ubuntu-vg/ubuntu-lv'[K
+[?2004le2fsck 1.46.5 (30-Dec-2021)
+Pass 1: Checking inodes, blocks, and sizes
+Pass 2: Checking directory structure
+Pass 3: Checking directory connectivity
+Pass 4: Checking reference counts
+Pass 5: Checking group summary information
+/dev/ubuntu-vg/ubuntu-lv: 84150/4128768 files (0.2% non-contiguous), 1687404/16514048 blocks
+[?2004h]0;root@lvm: /home/vagrant[01;32mroot@lvm[00m:[01;34m/home/vagrant[00m# e2fsck -f /dev/ubuntu-vg/ubuntu-lv'[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Cresize2fs /dev/ubuntu-vg/ubuntu-lv 8G
+[?2004lresize2fs 1.46.5 (30-Dec-2021)
+Resizing the filesystem on /dev/ubuntu-vg/ubuntu-lv to 2097152 (4k) blocks.
+The filesystem on /dev/ubuntu-vg/ubuntu-lv is now 2097152 (4k) blocks long.
+
+[?2004h]0;root@lvm: /home/vagrant[01;32mroot@lvm[00m:[01;34m/home/vagrant[00m# resize2fs /dev/ubuntu-vg/ubuntu-lv 8G[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Klvresize [K[K[K[K[Kduce -L 8G /dev/U[Kubuntu-vg/ubuntu-lv 
+[?2004l  WARNING: Reducing active logical volume to 8.00 GiB.
+  THIS MAY DESTROY YOUR DATA (filesystem etc.)
+Do you really want to reduce ubuntu-vg/ubuntu-lv? [y/n]: n
+  Logical volume ubuntu-vg/ubuntu-lv NOT reduced.
+[?2004h]0;root@lvm: /home/vagrant[01;32mroot@lvm[00m:[01;34m/home/vagrant[00m# lvreduce -L 8G /dev/ubuntu-vg/ubuntu-lv [C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C-r
+[?2004lfsck from util-linux 2.37.2
+/dev/mapper/ubuntu--vg-ubuntu--lv: clean, 84150/524288 files, 1457144/2097152 blocks
+resize2fs 1.46.5 (30-Dec-2021)
+The filesystem is already 2097152 (4k) blocks long.  Nothing to do!
+
+  Size of logical volume ubuntu-vg/ubuntu-lv changed from <63.00 GiB (16127 extents) to 8.00 GiB (2048 extents).
+  Logical volume ubuntu-vg/ubuntu-lv successfully resized.
+[?2004h]0;root@lvm: /home/vagrant[01;32mroot@lvm[00m:[01;34m/home/vagrant[00m# lvs /dev/ubuntu-vg/ubuntu-lv /dev/[K[K[K[K[K
+[?2004l  LV        VG        Attr       LSize Pool Origin Data%  Meta%  Move Log Cpy%Sync Convert
+  ubuntu-lv ubuntu-vg -wi-a----- 8.00g                                                    
+[?2004h]0;root@lvm: /home/vagrant[01;32mroot@lvm[00m:[01;34m/home/vagrant[00m# lvs
+[?2004l  LV        VG        Attr       LSize   Pool Origin Data%  Meta%  Move Log Cpy%Sync Convert
+  ubuntu-lv ubuntu-vg -wi-a-----   8.00g                                                    
+  lv_root   vg_root   -wi-ao---- <10.00g                                                    
+[?2004h]0;root@lvm: /home/vagrant[01;32mroot@lvm[00m:[01;34m/home/vagrant[00m# pvs
+[?2004l  PV         VG        Fmt  Attr PSize    PFree   
+  /dev/sda3  ubuntu-vg lvm2 a--  <126.00g <118.00g
+  /dev/sdb   vg_root   lvm2 a--   <10.00g       0 
+[?2004h]0;root@lvm: /home/vagrant[01;32mroot@lvm[00m:[01;34m/home/vagrant[00m# vgs
+[?2004l  VG        #PV #LV #SN Attr   VSize    VFree   
+  ubuntu-vg   1   1   0 wz--n- <126.00g <118.00g
+  vg_root     1   1   0 wz--n-  <10.00g       0 
+[?2004h]0;root@lvm: /home/vagrant[01;32mroot@lvm[00m:[01;34m/home/vagrant[00m# lsblk 
+[?2004lNAME                      MAJ:MIN RM   SIZE RO TYPE MOUNTPOINTS
+loop0                       7:0    0  63.9M  1 loop /snap/core20/2182
+loop1                       7:1    0  63.4M  1 loop /snap/core20/1974
+loop2                       7:2    0    87M  1 loop /snap/lxd/27948
+loop3                       7:3    0 111.9M  1 loop /snap/lxd/24322
+loop4                       7:4    0  39.1M  1 loop /snap/snapd/21184
+loop5                       7:5    0  53.3M  1 loop /snap/snapd/19457
+sda                         8:0    0   128G  0 disk 
+├─sda1                      8:1    0     1M  0 part 
+├─sda2                      8:2    0     2G  0 part /boot
+└─sda3                      8:3    0   126G  0 part 
+  └─ubuntu--vg-ubuntu--lv 253:1    0     8G  0 lvm  
+sdb                         8:16   0    10G  0 disk 
+└─vg_root-lv_root         253:0    0    10G  0 lvm  /
+sdc                         8:32   0     2G  0 disk 
+sdd                         8:48   0     1G  0 disk 
+sde                         8:64   0     1G  0 disk 
+[?2004h]0;root@lvm: /home/vagrant[01;32mroot@lvm[00m:[01;34m/home/vagrant[00m# mount /dev/ubuntu-vg/ubuntu-lv /mnt/
+[?2004l[?2004h]0;root@lvm: /home/vagrant[01;32mroot@lvm[00m:[01;34m/home/vagrant[00m# cd mn[K[K/mnt/
+[?2004l[?2004h]0;root@lvm: /mnt[01;32mroot@lvm[00m:[01;34m/mnt[00m# df -HT[K[Kht[KT
+[?2004lFilesystem                        Type   Size  Used Avail Use% Mounted on
+tmpfs                             tmpfs  197M  976K  196M   1% /run
+/dev/mapper/vg_root-lv_root       ext4   9.8G  5.4G  3.9G  59% /
+tmpfs                             tmpfs  982M     0  982M   0% /dev/shm
+tmpfs                             tmpfs  5.0M     0  5.0M   0% /run/lock
+/dev/sda2                         ext4   2.0G  234M  1.6G  13% /boot
+tmpfs                             tmpfs  197M  4.0K  197M   1% /run/user/1000
+/dev/mapper/ubuntu--vg-ubuntu--lv ext4   7.6G  5.2G  2.1G  72% /mnt
+[?2004h]0;root@lvm: /mnt[01;32mroot@lvm[00m:[01;34m/mnt[00m# ls -al
+[?2004ltotal 2097244
+drwxr-xr-x  19 root root       4096 Apr  4 18:07 [0m[01;34m.[0m
+drwxr-xr-x  19 root root       4096 Jan 11 00:07 [01;34m..[0m
+lrwxrwxrwx   1 root root          7 Aug 10  2023 [01;36mbin[0m -> [01;34musr/bin[0m
+drwxr-xr-x   2 root root       4096 Apr  4 18:07 [01;34mboot[0m
+drwxr-xr-x   4 root root       4096 Apr  4 18:07 [01;34mdev[0m
+drwxr-xr-x 103 root root       4096 Apr  4 18:07 [01;34metc[0m
+drwxr-xr-x   3 root root       4096 Apr  4 18:07 [01;34mhome[0m
+lrwxrwxrwx   1 root root          7 Aug 10  2023 [01;36mlib[0m -> [01;34musr/lib[0m
+lrwxrwxrwx   1 root root          9 Aug 10  2023 [01;36mlib32[0m -> [01;34musr/lib32[0m
+lrwxrwxrwx   1 root root          9 Aug 10  2023 [01;36mlib64[0m -> [01;34musr/lib64[0m
+lrwxrwxrwx   1 root root         10 Aug 10  2023 [01;36mlibx32[0m -> [01;34musr/libx32[0m
+drwx------   2 root root      16384 Jan 10 23:37 [01;34mlost+found[0m
+drwxr-xr-x   2 root root       4096 Apr  4 18:07 [01;34mmedia[0m
+drwxr-xr-x   2 root root       4096 Apr  4 18:07 [01;34mmnt[0m
+drwxr-xr-x   2 root root       4096 Apr  4 18:07 [01;34mopt[0m
+drwxr-xr-x   2 root root       4096 Apr  4 18:07 [01;34mproc[0m
+drwx------   5 root root       4096 Apr  4 18:07 [01;34mroot[0m
+drwxr-xr-x  14 root root       4096 Apr  4 18:07 [01;34mrun[0m
+lrwxrwxrwx   1 root root          8 Aug 10  2023 [01;36msbin[0m -> [01;34musr/sbin[0m
+drwxr-xr-x   6 root root       4096 Apr  4 18:07 [01;34msnap[0m
+drwxr-xr-x   2 root root       4096 Apr  4 18:07 [01;34msrv[0m
+-rw-------   1 root root 2147483648 Jan 10 23:40 swap.img
+drwxr-xr-x   2 root root       4096 Apr  4 18:07 [01;34msys[0m
+drwxrwxrwt   8 root root       4096 Apr  4 18:07 [30;42mtmp[0m
+drwxr-xr-x  14 root root       4096 Apr  4 18:07 [01;34musr[0m
+drwxr-xr-x  13 root root       4096 Aug 10  2023 [01;34mvar[0m
+[?2004h]0;root@lvm: /mnt[01;32mroot@lvm[00m:[01;34m/mnt[00m# lvcreate /dev/ubu[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[Kls /dev/
+[?2004l[0m[40;33;01mautofs[0m         [01;36mcore[0m             [40;33;01mdm-1[0m      [40;33;01mfull[0m       [01;36minitctl[0m  [40;33;01mloop2[0m  [40;33;01mloop-control[0m  [40;33;01mnull[0m   [01;34mpts[0m     [40;33;01msda1[0m  [40;33;01msde[0m  [30;42mshm[0m       [40;33;01mtty[0m    [40;33;01mtty13[0m  [40;33;01mtty19[0m  [40;33;01mtty24[0m  [40;33;01mtty3[0m   [40;33;01mtty35[0m  [40;33;01mtty40[0m  [40;33;01mtty46[0m  [40;33;01mtty51[0m  [40;33;01mtty57[0m  [40;33;01mtty62[0m      [40;33;01mttyS0[0m   [40;33;01mttyS14[0m  [40;33;01mttyS2[0m   [40;33;01mttyS25[0m  [40;33;01mttyS30[0m  [40;33;01mttyS8[0m      [40;33;01murandom[0m    [40;33;01mvcs2[0m  [40;33;01mvcsa1[0m  [40;33;01mvcsu[0m   [40;33;01mvcsu6[0m        [40;33;01mvhost-vsock[0m
+[01;34mblock[0m          [01;34mcpu[0m              [01;34mdma_heap[0m  [40;33;01mfuse[0m       [01;34minput[0m    [40;33;01mloop3[0m  [01;34mmapper[0m        [40;33;01mnvram[0m  [40;33;01mrandom[0m  [40;33;01msda2[0m  [40;33;01msg0[0m  [40;33;01msnapshot[0m  [40;33;01mtty0[0m   [40;33;01mtty14[0m  [40;33;01mtty2[0m   [40;33;01mtty25[0m  [40;33;01mtty30[0m  [40;33;01mtty36[0m  [40;33;01mtty41[0m  [40;33;01mtty47[0m  [40;33;01mtty52[0m  [40;33;01mtty58[0m  [40;33;01mtty63[0m      [40;33;01mttyS1[0m   [40;33;01mttyS15[0m  [40;33;01mttyS20[0m  [40;33;01mttyS26[0m  [40;33;01mttyS31[0m  [40;33;01mttyS9[0m      [40;33;01muserio[0m     [40;33;01mvcs3[0m  [40;33;01mvcsa2[0m  [40;33;01mvcsu1[0m  [01;34mvfio[0m         [40;33;01mzero[0m
+[01;34mbsg[0m            [40;33;01mcpu_dma_latency[0m  [01;34mdri[0m       [40;33;01mhpet[0m       [40;33;01mkmsg[0m     [40;33;01mloop4[0m  [40;33;01mmcelog[0m        [40;33;01mport[0m   [40;33;01mrfkill[0m  [40;33;01msda3[0m  [40;33;01msg1[0m  [01;34msnd[0m       [40;33;01mtty1[0m   [40;33;01mtty15[0m  [40;33;01mtty20[0m  [40;33;01mtty26[0m  [40;33;01mtty31[0m  [40;33;01mtty37[0m  [40;33;01mtty42[0m  [40;33;01mtty48[0m  [40;33;01mtty53[0m  [40;33;01mtty59[0m  [40;33;01mtty7[0m       [40;33;01mttyS10[0m  [40;33;01mttyS16[0m  [40;33;01mttyS21[0m  [40;33;01mttyS27[0m  [40;33;01mttyS4[0m   [01;34mubuntu-vg[0m  [40;33;01mvboxguest[0m  [40;33;01mvcs4[0m  [40;33;01mvcsa3[0m  [40;33;01mvcsu2[0m  [40;33;01mvga_arbiter[0m  [40;33;01mzfs[0m
+[40;33;01mbtrfs-control[0m  [40;33;01mcuse[0m             [40;33;01mecryptfs[0m  [01;34mhugepages[0m  [01;36mlog[0m      [40;33;01mloop5[0m  [40;33;01mmem[0m           [40;33;01mppp[0m    [01;36mrtc[0m     [40;33;01msdb[0m   [40;33;01msg2[0m  [01;36mstderr[0m    [40;33;01mtty10[0m  [40;33;01mtty16[0m  [40;33;01mtty21[0m  [40;33;01mtty27[0m  [40;33;01mtty32[0m  [40;33;01mtty38[0m  [40;33;01mtty43[0m  [40;33;01mtty49[0m  [40;33;01mtty54[0m  [40;33;01mtty6[0m   [40;33;01mtty8[0m       [40;33;01mttyS11[0m  [40;33;01mttyS17[0m  [40;33;01mttyS22[0m  [40;33;01mttyS28[0m  [40;33;01mttyS5[0m   [40;33;01mudmabuf[0m    [40;33;01mvboxuser[0m   [40;33;01mvcs5[0m  [40;33;01mvcsa4[0m  [40;33;01mvcsu3[0m  [01;34mvg_root[0m
+[01;34mchar[0m           [01;34mdisk[0m             [40;33;01mfb0[0m       [40;33;01mhwrng[0m      [40;33;01mloop0[0m    [40;33;01mloop6[0m  [30;42mmqueue[0m        [40;33;01mpsaux[0m  [40;33;01mrtc0[0m    [40;33;01msdc[0m   [40;33;01msg3[0m  [01;36mstdin[0m     [40;33;01mtty11[0m  [40;33;01mtty17[0m  [40;33;01mtty22[0m  [40;33;01mtty28[0m  [40;33;01mtty33[0m  [40;33;01mtty39[0m  [40;33;01mtty44[0m  [40;33;01mtty5[0m   [40;33;01mtty55[0m  [40;33;01mtty60[0m  [40;33;01mtty9[0m       [40;33;01mttyS12[0m  [40;33;01mttyS18[0m  [40;33;01mttyS23[0m  [40;33;01mttyS29[0m  [40;33;01mttyS6[0m   [40;33;01muhid[0m       [40;33;01mvcs[0m        [40;33;01mvcs6[0m  [40;33;01mvcsa5[0m  [40;33;01mvcsu4[0m  [40;33;01mvhci[0m
+[40;33;01mconsole[0m        [40;33;01mdm-0[0m             [01;36mfd[0m        [40;33;01mi2c-0[0m      [40;33;01mloop1[0m    [40;33;01mloop7[0m  [01;34mnet[0m           [40;33;01mptmx[0m   [40;33;01msda[0m     [40;33;01msdd[0m   [40;33;01msg4[0m  [01;36mstdout[0m    [40;33;01mtty12[0m  [40;33;01mtty18[0m  [40;33;01mtty23[0m  [40;33;01mtty29[0m  [40;33;01mtty34[0m  [40;33;01mtty4[0m   [40;33;01mtty45[0m  [40;33;01mtty50[0m  [40;33;01mtty56[0m  [40;33;01mtty61[0m  [40;33;01mttyprintk[0m  [40;33;01mttyS13[0m  [40;33;01mttyS19[0m  [40;33;01mttyS24[0m  [40;33;01mttyS3[0m   [40;33;01mttyS7[0m   [40;33;01muinput[0m     [40;33;01mvcs1[0m       [40;33;01mvcsa[0m  [40;33;01mvcsa6[0m  [40;33;01mvcsu5[0m  [40;33;01mvhost-net[0m
+[?2004h]0;root@lvm: /mnt[01;32mroot@lvm[00m:[01;34m/mnt[00m# ls /dev/u
+ubuntu-vg/ udmabuf    uhid       uinput     urandom    userio     
+]0;root@lvm: /mnt[01;32mroot@lvm[00m:[01;34m/mnt[00m# ls /dev/u[1P[1P /dev/ul /dev/uv /dev/uc /dev/ur /dev/ue /dev/uate /dev/u[C[1Pdev/u[1Pev/u[1Pv/u[1P/u[1Pu-uLu u1u0uGu u[Cbiuntuv[K_vg -n ubuntu [K_lv2
+[?2004l  Volume group "ubiuntu_vg" not found
+  Cannot process volume group ubiuntu_vg
+[?2004h]0;root@lvm: /mnt[01;32mroot@lvm[00m:[01;34m/mnt[00m# lvcreate -L 10G ubiuntu_vg -n ubuntu_lv2[1P[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C
+[?2004l  Volume group "ubuntu_vg" not found
+  Cannot process volume group ubuntu_vg
+[?2004h]0;root@lvm: /mnt[01;32mroot@lvm[00m:[01;34m/mnt[00m# lvcreate -L 10G ubuntu_vg -n ubuntu_lv2[1P[1P[1P[1P[1P[1P[1P[1P[1P[1P[C[C[C[C[C[C[C[C[C[C[C[C[C ubuntu_vg
+[?2004l  Volume group "ubuntu_vg" not found
+  Cannot process volume group ubuntu_vg
+[?2004h]0;root@lvm: /mnt[01;32mroot@lvm[00m:[01;34m/mnt[00m# lvcreate -L 10G -n ubuntu_lv2 ubuntu_vg[1Pvg-vg[C[C
+[?2004l  Logical volume "ubuntu_lv2" created.
+[?2004h]0;root@lvm: /mnt[01;32mroot@lvm[00m:[01;34m/mnt[00m# mkfs.ext4 /dev/uv[Kbuntu-vg/ubuntu-[K_lv2 
+[?2004lmke2fs 1.46.5 (30-Dec-2021)
+Creating filesystem with 2621440 4k blocks and 655360 inodes
+Filesystem UUID: 2438e3ef-677f-4051-984e-eabf14c1ccbe
+Superblock backups stored on blocks: 
+	32768, 98304, 163840, 229376, 294912, 819200, 884736, 1605632
+
+Allocating group tables:  0/80     done                            
+Writing inode tables:  0/80     done                            
+Creating journal (16384 blocks): done
+Writing superblocks and filesystem accounting information:  0/80     done
+
+[?2004h]0;root@lvm: /mnt[01;32mroot@lvm[00m:[01;34m/mnt[00m# mkdir /mnt2
+[?2004l[?2004h]0;root@lvm: /mnt[01;32mroot@lvm[00m:[01;34m/mnt[00m# mount /dev/ubuntu-vg/ubuntu_lv2 /mnt2/
+[?2004l[?2004h]0;root@lvm: /mnt[01;32mroot@lv
