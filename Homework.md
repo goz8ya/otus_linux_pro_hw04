@@ -42,7 +42,7 @@ sdc                         8:32   0     2G  0 disk
 sdd                         8:48   0     1G  0 disk 
 sde                         8:64   0     1G  0 disk 
 
-Подготовим временный том для / раздела:
+### Подготовим временный том для / раздела:
 
 [root@lvm ~]# pvcreate /dev/sdb
   Physical volume "/dev/sdb" successfully created.
@@ -55,7 +55,7 @@ WARNING: ext4 signature detected on /dev/vg_root/lv_root at offset 1080. Wipe it
   Wiping ext4 signature on /dev/vg_root/lv_root.
   Logical volume "lv_root" created.
 
-Создадим на нем файловую систему и смонтируем его, чтобы перенести туда данные:
+### Создадим на нем файловую систему и смонтируем его, чтобы перенести туда данные:
 
 root@lvm:/home/vagrant# mkfs.ext4 /dev/vg_root/lv_root
 mke2fs 1.46.5 (30-Dec-2021)
@@ -74,7 +74,7 @@ Progress: [ 80%] [##############################################################
 
 [root@lvm ~]# mount /dev/vg_root/lv_root /mnt
 
-Ставим программу для переноса и командой копируем все данные с / раздела в /mnt:
+### Ставим программу для переноса и командой копируем все данные с / раздела в /mnt:
 
 [root@lvm ~]# yum install dump
 
@@ -84,16 +84,16 @@ Progress: [ 80%] [##############################################################
 [root@lvm ~]# cd /mnt
 [root@lvm ~]# restore -rf /tmp/root.img
 
-Проверить что скопировалось можно командой ls /mnt.
+### Проверить что скопировалось можно командой ls /mnt.
 
 
-Сымитируем текущий root, сделаем в него chroot и обновим grub:
+### Сымитируем текущий root, сделаем в него chroot и обновим grub:
 
 [root@lvm ~]# for i in /proc/ /sys/ /dev/ /run/ /boot/;  do mount --bind $i /mnt/$i; done
 
 [root@lvm ~]# chroot /mnt/
 
-Затем сконфигурируем grub для того, чтобы при старте перейти в новый /
+### Затем сконфигурируем grub для того, чтобы при старте перейти в новый /
 
 [root@lvm /]# grub-mkconfig -o /boot/grub/grub.cfg
 Generating grub configuration file ...
@@ -104,7 +104,7 @@ Found initrd image: /boot/initramfs-3.10.0-862.2.3.el7.x86_64.img
 done
 
 
-Проверяем заменну в файле 
+### Проверяем заменну в файле 
 /boot/grub/grub.cfg заменить ubuntu_vg/ubuntu_lv на vg_root/lv_root
 
 выходим  Ctrl+d 
@@ -131,7 +131,7 @@ sdd                         8:48   0     1G  0 disk
 sde                         8:64   0     1G  0 disk
 
 
-Теперь нам нужно изменить размер старой VG и вернуть на него рут. Изменяем размер на 8G:
+### Теперь нам нужно изменить размер старой VG и вернуть на него рут. Изменяем размер на 8G:
 
 
 root@lvm:/home/vagrant# resize2fs /dev/ubuntu-vg/ubuntu-lv 8G
@@ -158,7 +158,7 @@ Do you really want to reduce ubuntu-vg/ubuntu-lv? [y/n]: n
   Logical volume ubuntu-vg/ubuntu-lv NOT reduced.
 root@lvm:/home/vagrant# lvreduce -L 8G /dev/ubuntu-vg/ubuntu-lv -r
 
-Размер LVM 8G
+### Размер LVM 8G
 
 root@lvm:/home/vagrant# lsblk
 NAME                      MAJ:MIN RM   SIZE RO TYPE MOUNTPOINTS
@@ -189,12 +189,12 @@ tmpfs                             tmpfs  5.0M     0  5.0M   0% /run/lock
 tmpfs                             tmpfs  197M  4.0K  197M   1% /run/user/1000
 /dev/mapper/ubuntu--vg-ubuntu--lv ext4   7.6G  5.2G  2.1G  72% /mnt
 
-Возврящаем диск обратно, можно с переносом данных, но мы ничего не меняли, поэтому переносим корень и загрузчик
+### Возврящаем диск обратно, можно с переносом данных, но мы ничего не меняли, поэтому переносим корень и загрузчик
 
 
 
 
-Сымитируем текущий root, сделаем в него chroot и обновим grub:
+### Сымитируем текущий root, сделаем в него chroot и обновим grub:
 
 [root@lvm ~]# for i in /proc/ /sys/ /dev/ /run/ /boot/;  do mount --bind $i /mnt/$i; done
 
@@ -211,14 +211,14 @@ Found initrd image: /boot/initramfs-3.10.0-862.2.3.el7.x86_64.img
 done
 
 
-Проверяем заменну в файле 
+### Проверяем заменну в файле 
 /boot/grub/grub.cfg заменить  vg_root/lv_root на  ubuntu_vg/ubuntu_lv
 
 выходим  Ctrl+d 
 
 Перезагружаемся
 
-Раздел перенесен
+### Раздел перенесен
 
 root@lvm:/# lsblk
 NAME                      MAJ:MIN RM   SIZE RO TYPE MOUNTPOINTS
